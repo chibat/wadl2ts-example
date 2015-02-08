@@ -1,0 +1,26 @@
+
+apply plugin: 'java'
+apply plugin: 'war'
+apply plugin: 'eclipse-wtp'
+
+task wrapper(type: Wrapper) {
+  gradleVersion = '2.2.1'
+}
+
+eclipseWtpComponent.dependsOn cleanEclipseWtpComponent
+
+sourceCompatibility = targetCompatibility = 1.8
+[compileJava, compileTestJava]*.options*.encoding = 'UTF-8'
+
+repositories {
+  mavenCentral()
+}
+
+dependencies {
+  compile 'org.glassfish.jersey.containers:jersey-container-servlet:2.+'
+  compile 'org.glassfish.jersey.media:jersey-media-json-jackson:2.+'
+  // compile 'org.glassfish.jersey.core:jersey-client:2.+'
+  providedCompile 'javax.servlet:javax.servlet-api:3.0.1'
+}
+
+
