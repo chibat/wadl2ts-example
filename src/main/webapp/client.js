@@ -6,10 +6,17 @@ var client;
     (function (calculator) {
         var add;
         (function (add) {
-            function get(arg1, arg2, callback) {
-                $.ajax({ dataType: 'xml', type: 'GET', url: client.baseUri + 'calculator/add', data: { arg1: arg1, arg2: arg2, }, success: function (res) {
+            function get(arg1, arg2, callback, options) {
+                if (options === void 0) { options = {}; }
+                var settings = options;
+                settings.dataType = 'xml';
+                settings.type = 'GET';
+                settings.url = client.baseUri + 'calculator/add';
+                settings.data = { arg1: arg1, arg2: arg2, };
+                settings.success = function (res) {
                     callback((client.x2js.xml2json(res).result));
-                } });
+                };
+                $.ajax(settings);
             }
             add.get = get;
         })(add = calculator.add || (calculator.add = {}));
